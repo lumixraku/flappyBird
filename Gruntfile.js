@@ -2,8 +2,8 @@ module.exports = function(grunt) {
     'use strict';
     
     var config = {
-        src: 'app/',
-        dist: 'deploy/'
+        app: 'app',
+        dist: 'dist'
     };
 
     require('load-grunt-tasks')(grunt);
@@ -24,22 +24,22 @@ module.exports = function(grunt) {
         copy: {
             html: {
                 expand: true,
-                cwd: config.src,
+                cwd: config.app,
                 src: '*.html',
                 dest: config.dist
             },
             img: {
                 expand: true,
-                cwd: config.src + 'img/',
+                cwd: config.app + '/img/',
                 src: '**',
-                dest: config.dist + 'img/'
+                dest: config.dist + '/img/'
             }
         },
 
         compass: {
             main: {
                 options: {
-                    basePath: config.src,
+                    basePath: config.app,
                     sassDir: 'sass',
                     cssDir: 'css',
                     imagesDir: 'img',
@@ -55,29 +55,29 @@ module.exports = function(grunt) {
 
         cssmin: {
             main: {
-                src: [config.src + 'css/*.css'],
-                dest: config.dist + 'css/style.css'
+                src: [config.app + '/css/*.css'],
+                dest: config.dist + '/css/style.css'
             }
         },
 
         imagemin: {
             main: {
                 expand: true,
-                cwd: config.src + 'img',
+                cwd: config.app + '/img',
                 src: '**/*.{png,jpg,jpeg,gif}',
-                dest: config.dist + 'img'
+                dest: config.dist + '/img'
             }
         },
 
         uglify: {
             main: {
-                src: [config.src + 'js/*.js'],
-                dest: config.dist + 'js/script.js'
+                src: [config.app + '/js/*.js'],
+                dest: config.dist + '/js/script.js'
             }
         },
 
         usemin: {
-            html: config.dist + '*.html',
+            html: config.dist + '/*.html',
             options: {
                 dest: config.dist
             }
@@ -85,7 +85,7 @@ module.exports = function(grunt) {
 
         watch: {
             main: {
-                files: [config.src + 'sass/**'],
+                files: [config.app + '/sass/**'],
                 tasks: ['compass', 'build']
             }
         }
